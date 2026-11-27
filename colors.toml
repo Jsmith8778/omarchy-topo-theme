@@ -1,0 +1,41 @@
+# Topo: neutral surfaces, softly tinted ANSI colours.
+mode = "dark"
+
+accent = "#dedede"
+selection = "#414141"
+muted = "#969696"
+selection_foreground = "#f5f5f5"
+selection_background = "#414141"
+
+background = "#101010"
+dark_background = "#0c0c0c"
+darker_background = "#080808"
+lighter_background = "#242424"
+
+foreground = "#dedede"
+dark_foreground = "#a4a4a4"
+light_foreground = "#e8e8e8"
+bright_foreground = "#f5f5f5"
+
+red = "#b89595"
+yellow = "#b7ac8c"
+orange = "#b8a08b"
+green = "#9eaf99"
+cyan = "#96b0b0"
+blue = "#98a8bf"
+magenta = "#b09db5"
+brown = "#ac9988"
+
+bright_red = "#d0b0b0"
+bright_yellow = "#d0c5a7"
+bright_green = "#b8c9b2"
+bright_cyan = "#b1caca"
+bright_blue = "#b2c2d8"
+bright_magenta = "#cbb7d0"
+
+# Optional roles present in other bundled themes; keep all surfaces neutral.
+active_border_color = "#dedede"
+active_tab_background = "#dedede"
+hyprland_active_border = "#dedede"
+hyprland_inactive_border = "#555555"
+icon_mark = "#dedede"
