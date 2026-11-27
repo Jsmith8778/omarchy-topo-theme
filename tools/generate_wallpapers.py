@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate six original Topo terrains using only NumPy and Pillow.
+"""Generate the three original Topo dark terrains using only NumPy and Pillow.
 
 Run: python3 tools/generate_wallpapers.py
 Optional: --only 1-topo-dark-ridge (one exact output stem).
@@ -31,7 +31,7 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 WIDTH, HEIGHT = 3840, 2160
 SCALE = 2
-SVG_NAMESPACE = "http://www&#46;w3&#46;org/2000/svg"
+SVG_NAMESPACE = "http://www.w3.org/2000/svg"
 
 
 @dataclass(frozen=True)
@@ -47,9 +47,6 @@ DESIGNS = (
     Design("1-topo-dark-ridge", 2701, "ridge", 52),
     Design("2-topo-dark-peaks", 2702, "peaks", 43),
     Design("3-topo-dark-basin", 2703, "basin", 60),
-    Design("4-topo-light-ridge", 2704, "ridge", 47, True),
-    Design("5-topo-light-peaks", 2705, "peaks", 56, True),
-    Design("6-topo-light-basin", 2706, "basin", 50, True),
 )
 
 

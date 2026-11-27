@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+"""Pillow subset of magick used by the pinned Omarchy theme look checker.
+
+Supports only its image statistics call and first-background resize/crop render.
+Statistics are normalized 0..1 mean and standard deviation across RGB channels,
+not linearized WCAG luminance. They match grey wallpaper intensity; alpha is
+excluded. Render drawing operations (windows, bar, text) are deliberately
+ignored, so this fallback verifies checks without claiming a desktop rendering.
+"""
+
+import math
+from pathlib import Path
+import sys
+
+from PIL import Image, ImageOps, ImageStat
+
+
+def main() -> int:
+    args = sys.argv[1:]
+    if len(args) == 4 and args[1:] == ["-format", "%w %h %[fx:mean] %[fx:standard_deviation]", "info:"]:
+        with Image.open(args[0]) as source:
+            image = source.convert("RGB")
+            stats = ImageStat.Stat(image)
+            mean = sum(stats.mean) / 3 / 255
+            variance = sum(value * value for value in stats.rms) / 3 / 255 ** 2 - mean ** 2
+            deviation = math.sqrt(max(0, variance))
+            print(f"{image.width} {image.height} {mean:.12f} {deviation:.12f}")
+        return 0
+    if len(args) >= 10 and Path(args[0]).is_file() and args[1:8] == ["-resize", "1280x720^", "-gravity", "center", "-extent", "1280x720", "-gravity"]:
+        with Image.open(args[0]) as source:
+            image = ImageOps.fit(source.convert("RGB"), (1280, 720), method=Image.Resampling.LANCZOS, centering=(0.5, 0.5))
+            image.save(args[-1], format="PNG")
+        return 0
+    print("unsupported magick arguments: this shim only supports the Omarchy look checker", file=sys.stderr)
+    return 2
+
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main())
+    except (OSError, ValueError) as error:
+        print(f"magick shim failed: {error}", file=sys.stderr)
+        sys.exit(1)
